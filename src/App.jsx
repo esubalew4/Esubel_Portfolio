@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from "react";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+import Hero from "./Pages/Hero";
+import ParticlesComponent from "./Components/Particles";
+import About from "./Pages/About";
+import Skills from "./Pages/Skills";
+import Projects from "./Pages/Projects";
+import Contact from "./Pages/Contact";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [isDark, setIsDark] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme === "dark" : true;
+  });
 
+  useEffect(() => {
+    const theme = isDark ? "dark" : "light";
+    document.body.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [isDark]);
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {" "}
+      <ParticlesComponent id="particles" />
+      <Header isDark={isDark} setIsDark={setIsDark} />
+      <Hero isDark={isDark} setIsDark={setIsDark} />
+      <About />
+      <Skills isDark={isDark} setIsDark={setIsDark} />
+      <Projects />
+      <Contact />
+      <Footer isDark={isDark} setIsDark={setIsDark} />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
