@@ -1,7 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaReact, FaJs, FaHtml5, FaCss3Alt, FaNodeJs } from "react-icons/fa";
-import { SiTailwindcss, SiNextdotjs } from "react-icons/si";
+import {
+  SiTailwindcss,
+  SiNextdotjs,
+  SiGreensock,
+  SiSupabase,
+} from "react-icons/si";
+import { assets } from "../assets/assets";
 
 const Skills = (props) => {
   const isDark = props.isDark;
@@ -21,18 +27,23 @@ const Skills = (props) => {
       ),
     },
     { name: "Node.js", icon: <FaNodeJs className="text-green-500" /> },
-    { name: "React Native", icon: <FaReact className="text-cyan-400" /> },
+    {
+      name: "Framer Motion",
+      icon: <img src={`${assets.framerMotion}`} className=" w-10" />,
+    },
+    { name: "GSAP", icon: <SiGreensock className="text-green-400" /> },
+    { name: "supabase", icon: <SiSupabase className="text-green-400" /> },
   ];
 
   return (
-    <section id="Skills" className="py-16 bg-[var(--color-primary)] text-white">
+    <section id="Skills" className="py-14 bg-[var(--color-primary)] text-white">
       <div className="container mx-auto px-6 md:px-12 text-center">
         {/* Section Title */}
         <motion.h2
           className="text-3xl md:text-4xl font-bold mb-8 text-text-primary"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
           My <span className="text-accent">Skills & Technologies</span>
         </motion.h2>
@@ -45,7 +56,7 @@ const Skills = (props) => {
               className="flex flex-col items-center gap-3 p-6 bg-bg-nav rounded-xl shadow-lg cursor-pointer transition-transform hover:scale-105"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
               whileHover={{ rotate: 3, transition: { duration: 0.2 } }}
             >
               <div className="text-5xl">{skill.icon}</div>

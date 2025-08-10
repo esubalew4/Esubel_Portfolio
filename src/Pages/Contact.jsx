@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaTelegram } from "react-icons/fa";
+import toast from "react-hot-toast";
+import Loading from "../Components/Loading";
 
 const Contact = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    const formData = new FormData(event.target);
+
+    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      toast.success("Form Submitted Successfully");
+      event.target.reset();
+      setIsLoading(false);
+    } else {
+      console.log("Error", data);
+      setIsLoading(false);
+      toast.error(`Error ${data.message}`);
+    }
+  };
   return (
     <section
       id="contact"
@@ -31,31 +59,47 @@ const Contact = () => {
 
       {/* Contact Form */}
       <motion.form
+        onSubmit={onSubmit}
         className="max-w-2xl mx-auto bg-bg-nav p-6 rounded-xl shadow-lg space-y-4"
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
+        transition={{ delay: 0.2, duration: 0.3 }}
       >
         <input
+          required
           type="text"
           placeholder="Your Name"
+          name="name"
           className="w-full p-3 rounded-lg bg-transparent border border-gray-500 focus:border-accent outline-none placeholder:text-text-primary/60 transition"
         />
         <input
+          required
           type="email"
           placeholder="Your Email"
+          name="email"
           className="w-full p-3 rounded-lg bg-transparent border border-gray-500 focus:border-accent outline-none placeholder:text-text-primary/60 transition"
         />
         <textarea
+          required
           placeholder="Your Message"
+          name="message"
           rows="5"
           className="w-full p-3 rounded-lg bg-transparent border border-gray-500 focus:border-accent placeholder:text-text-primary/60 outline-none transition"
         ></textarea>
         <button
           type="submit"
-          className="w-full py-3 rounded-lg bg-accent text-white font-medium hover:scale-101 cursor-pointer hover:shadow-lg duration-150"
+          className={`${
+            isLoading ? "opacity-60 pointer-events-none" : ""
+          } flex justify-center w-full py-3 rounded-lg bg-accent text-white font-medium hover:scale-101 cursor-pointer hover:shadow-lg duration-150 gap-2`}
         >
-          Send Message
+          {isLoading ? (
+            <>
+              <Loading />
+              Sending
+            </>
+          ) : (
+            "Send Message"
+          )}
         </button>
       </motion.form>
 

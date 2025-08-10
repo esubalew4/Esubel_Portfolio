@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @theme {
   --color-bg-primary: #0e0826;
   --color-bg-nav: #0d1426;
@@ -25,20 +26,33 @@
   form input:-webkit-autofill,
   form input:-webkit-autofill:hover,
   form input:-webkit-autofill:focus {
-    -webkit-text-fill-color: var(--color-secondary) !important;
+    -webkit-text-fill-color: var(--color-text-primary) !important;
     transition: background-color 9999s ease-in-out 0s !important;
   }
 }
 body {
   background-color: var(--color-bg-primary);
-  overflow-x: hidden;
 }
 body::-webkit-scrollbar {
   width: 9px;
 }
-body::-webkit-scrollbar-track {
-  background-color: var(--color-neutral-800);
+.projectList::-webkit-scrollbar {
+  height: 8px;
 }
-body::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-track,
+.projectList::-webkit-scrollbar-track {
+  background-color: var(--color-neutral-600);
+}
+body::-webkit-scrollbar-thumb,
+.projectList::-webkit-scrollbar-thumb {
   background-color: var(--color-neutral-400);
+}
+.adminList a {
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.adminList a.active {
+  background-color: var(--color-gray-700);
 }

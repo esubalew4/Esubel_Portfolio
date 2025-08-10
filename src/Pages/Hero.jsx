@@ -1,9 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import AnchorLink from "react-anchor-link-smooth-scroll";
-const languages = ["JavaScript", "React", "TypeScript", "Tailwind CSS"];
+import { Typewriter } from "react-simple-typewriter";
 
-const Hero = (props) => {
+const Hero = () => {
+  const languages = ["JavaScript", "React", "TypeScript", "Tailwind CSS"];
   return (
     <section
       id="Home"
@@ -21,15 +22,31 @@ const Hero = (props) => {
         </motion.p>
 
         {/* Main Heading */}
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl md:text-6xl font-bold text-text-primary leading-tight"
+          className="text-4xl md:text-6xl font-bold text-text-primary leading-tight "
         >
-          I Build Modern & Creative Websites
-        </motion.h1>
-
+          I Build{" "}
+          <h1 className="text-accent">
+            {" "}
+            <Typewriter
+              words={[
+                "Modern Websites",
+                "Creative Websites",
+                "Responsive Websites",
+                "Beautiful UI Designs",
+              ]}
+              cursor
+              cursorColor="var(--color-text-primary)"
+              typeSpeed={120}
+              deleteSpeed={50}
+              delaySpeed={1500}
+              loop
+            />
+          </h1>
+        </motion.div>
         {/* Description */}
         <motion.p
           initial={{ opacity: 0 }}
